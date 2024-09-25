@@ -1,0 +1,160 @@
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    margin: 0 10px 10px;
+}
+
+.busca {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.busca h3 {
+    color: #a50101;
+}
+
+.busca label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.busca label input{
+    width: 20em;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid #a50101;
+    border-radius: 2em;
+    outline: none;
+}
+
+
+.busca label input:focus {
+    border: 2px solid #3a0000;
+    outline: 2px solid #3a0000;
+}
+
+.busca label button {
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: 2px solid #a50101;
+    border-radius: 5em;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.busca label button img {
+    width: 25px;
+    padding: 6px;
+    box-sizing: unset;
+    filter: brightness(0) saturate(100%) invert(8%) sepia(74%) saturate(6416%) hue-rotate(2deg) brightness(102%) contrast(110%);
+}
+
+.busca label button:hover  {
+   border-color: rgb(107, 0, 0);
+}
+
+.busca label button:active  {
+    border-color: #3a0000;
+ }
+
+.busca label button img:hover {
+    filter: brightness(0) saturate(100%) invert(9%) sepia(56%) saturate(5331%) hue-rotate(354deg) brightness(94%) contrast(113%);
+}
+
+.busca label button img:active  {
+    filter: brightness(0) saturate(100%) invert(11%) sepia(58%) saturate(1421%) hue-rotate(329deg) brightness(92%) contrast(121%);
+}
+
+section {
+    width: 80%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    max-width: 700px;
+}
+
+.pokemon {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pokemon .poke-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.poke-title .name-num {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.poke-title .name-num h2{
+    margin: 0 5px;
+}
+
+.poke-title .poke-types {
+    display: flex;
+}
+
+.poke-types h4 {
+    margin: 3px;
+    border: 2px solid #000;
+    border-radius: 2em;
+    padding: 2px;
+    width: 100px;
+    text-align: center;
+}
+
+#grass {
+    background-color: rgb(1, 148, 21);
+    color: #fff;
+}
+
+#poison {
+    background-color: #af01a1;
+    color: #fff;
+}
+
+.poke-image img {
+    max-width: 270px;
+}
+
+.poke-class {
+    display: flex;
+    justify-content: space-around;
+    border: 3px solid #a50101;
+    padding: 5px;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    background: #a50101;
+    color: #fff;
+    font-weight: 700;
+}
+
+#poke-description {
+    padding: 7px;
+    text-align: justify;
+}
+
+@media screen and (max-width: 715px) {
+
+.pokemon .poke-container {
+    justify-content: center;
+}
+    
+}

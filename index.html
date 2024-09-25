@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="styles/navbar.css" />
+    <link rel="stylesheet" href="styles/principal.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Pokédex</h1>
+      <nav>
+        <div class="navbar">
+          <ul>
+            <li><a href="index.html">Inicial</a></li>
+            <li><a href="./pages/pokedex.html">Pokédex</a></li>
+            <li><a href="#">Surpreenda-me</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main>
+        <div class="busca">
+            <label for="pokemon">
+                <input placeholder="Procure por um Pokémon..." name="pokemon" id="pokémon" />
+                <button>
+                <img src="./images/lupa.png" alt="" />
+                </button>
+            </label>
+        </div>
+      <section>
+        <div class="pokemon">
+          <div class="poke-container">
+            <div class="poke-title">
+              <div class="name-num">
+                <div class="name-species">
+                  <h2 id="poke-name">Bulbasaur</h3>
+                  <p id="poke-species">Pokémon Semente</p>
+                </div>
+                <h3 id="poke-num">#001</h4>
+              </div>
+              <div class="poke-types">
+                <h4 class="types" id="grass">Grass</h4>
+                <h4 class="types" id="poison">Poison</h4>
+              </div>
+            </div>
+            <div class="poke-image">
+              <img id="poke-img" src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/001.png" alt="">
+            </div>
+          </div>
+          <div class="poke-info">
+            <div class="poke-class">
+              <div>
+                <p>Peso: <span id="peso">6.9 kg</span></p>
+                <p>Altura: <span id="altura">0.7 m</span></p>
+              </div>
+              <div>
+                <p>Habilidades: <span id="habilidade">Overgrow</span></p>
+              </div>
+            </div>
+            <p id="poke-description">Uma semente estranha foi plantada em suas costas ao nascer. A planta brota e cresce com este POKéMON.</p>
+          <div class="poke-evo">
+
+          </div>
+          <div class="poke-tipagem"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+  <script src="./scripts/index.js"></script>
+</html>
