@@ -6,6 +6,11 @@
     <title>Pokédex</title>
     <link rel="stylesheet" href="styles/navbar.css" />
     <link rel="stylesheet" href="styles/principal.css" />
+    <link
+      rel="shortcut icon"
+      href="images/icon/pokebola.ico"
+      type="image/x-icon"
+    />
   </head>
   <body>
     <header>
@@ -21,24 +26,28 @@
       </nav>
     </header>
     <main>
-        <div class="busca">
-            <label for="pokemon">
-                <input placeholder="Procure por um Pokémon..." name="pokemon" id="pokémon" />
-                <button>
-                <img src="./images/lupa.png" alt="" />
-                </button>
-            </label>
-        </div>
+      <div class="busca">
+        <label for="pokemon">
+          <input
+            placeholder="Procure por um Pokémon..."
+            name="pokemon"
+            id="pokemon"
+          />
+          <button id="find-button">
+            <img src="./images/lupa.png" alt="" />
+          </button>
+        </label>
+      </div>
       <section>
         <div class="pokemon">
           <div class="poke-container">
             <div class="poke-title">
               <div class="name-num">
                 <div class="name-species">
-                  <h2 id="poke-name">Bulbasaur</h3>
-                  <p id="poke-species">Pokémon Semente</p>
+                  <h2 id="poke-name">Bulbasaur</h2>
+                  <p id="poke-species">Seed Pokémon</p>
                 </div>
-                <h3 id="poke-num">#001</h4>
+                <h3 id="poke-num">#0001</h3>
               </div>
               <div class="poke-types">
                 <h4 class="types" id="grass">Grass</h4>
@@ -46,24 +55,63 @@
               </div>
             </div>
             <div class="poke-image">
-              <img id="poke-img" src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/001.png" alt="">
+              <img
+                id="poke-img"
+                src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/001.png"
+                alt=""
+              />
             </div>
           </div>
           <div class="poke-info">
-            <div class="poke-class">
-              <div>
-                <p>Peso: <span id="peso">6.9 kg</span></p>
-                <p>Altura: <span id="altura">0.7 m</span></p>
+            <div class="poke-info-container">
+              <div class="poke-class">
+                <div>
+                  <p>Peso: <span id="peso">6.9 kg</span></p>
+                  <p>Altura: <span id="altura">0.7 m</span></p>
+                </div>
+                <div>
+                  <p>Habilidades: <span id="habilidade">Overgrow</span></p>
+                </div>
               </div>
-              <div>
-                <p>Habilidades: <span id="habilidade">Overgrow</span></p>
+              <h4 class="poke-description">
+                Descrição:
+                <span id="pokedex-description"
+                  >Uma semente estranha foi plantada em suas costas ao nascer. A
+                  planta brota e cresce com este POKéMON.
+                </span>
+              </h4>
+            </div>
+            <div class="poke-evo">
+              <h4>Evoluções:</h4>
+              <div class="evos">
+                <div class="evo" id="evo1">
+                  <img
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/icons/1.png"
+                    alt=""
+                  />
+                  <p>Bulbasaur</p>
+                </div>
+                <img class="seta" src="images/seta-direita.png" />
+                <div class="evo" id="evo2">
+                  <img
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/icons/2.png"
+                    alt=""
+                  />
+                  <p>Ivysaur</p>
+                </div>
+                <img class="seta" src="images/seta-direita.png" />
+                <div class="evo" id="evo3">
+                  <img
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/icons/3.png"
+                    alt=""
+                  />
+                  <p>Venusaur</p>
+                </div>
               </div>
             </div>
-            <p id="poke-description">Uma semente estranha foi plantada em suas costas ao nascer. A planta brota e cresce com este POKéMON.</p>
-          <div class="poke-evo">
-
-          </div>
-          <div class="poke-tipagem"></div>
+            <div class="poke-tipagem">
+              
+            </div>
           </div>
         </div>
       </section>
