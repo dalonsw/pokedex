@@ -1,3 +1,6 @@
+@import url(./navbar.css);
+@import url(./poketypes.css);
+
 main {
     display: flex;
     align-items: center;
@@ -115,16 +118,6 @@ section {
     padding: 2px;
     width: 100px;
     text-align: center;
-}
-
-#grass {
-    background-color: rgb(1, 148, 21);
-    color: #fff;
-}
-
-#poison {
-    background-color: #af01a1;
-    color: #fff;
 }
 
 .poke-image img {
