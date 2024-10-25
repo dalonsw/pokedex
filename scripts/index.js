@@ -11,32 +11,21 @@ const pTypes = document.getElementsByClassName("types");
 const pWeight = document.getElementById("peso");
 const pHeight = document.getElementById("altura");
 const pDescription = document.getElementById("pokedex-description");
+const pAbilities = document.getElementById("poke-ability")
+const pEvoContainer = document.getElementById('poke-evos-container')
 
-//Pegar informações sobre a espécie Pokémon
-const fetchPokemonSpecies = async (pokemon) => {
-    const APIResponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}`)
+
+//Pegar informações sobre a API
+const fetchAPI = async (URL) => {
+    const APIResponse = await fetch(URL)
     const data = await APIResponse.json()
     return data
 }
-
-//Pegar mais informações sobre o Pokémon
-const fetchPokemon = async (pokemon) => {
-    const APIResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-    const data = await APIResponse.json()
-    return data
-}
-
-//API de Tradução
-const translate = async (text) => {
-    const APIResponse = await fetch(`https://api.mymemory.translated.net/get?q=${text}&langpair=en|pt`)
-    const data = await APIResponse.json()
-    return data
-} 
 
 //Função para atualizar e mostrar dados no Front-end
 const mostrarInformacoesPokemonSpecies = async (data) => {
     //Pegar mais informações
-    const pokemonMoreData = await fetchPokemon(data.id)
+    const pokemonMoreData = await fetchAPI(`https://pokeapi.co/api/v2/pokemon/${data.id}`)
     console.log(pokemonMoreData)
 
 //Alterar e tratar os dados
@@ -65,10 +54,11 @@ const mostrarInformacoesPokemonSpecies = async (data) => {
         let primeiraLetraUpper = nomeArray.shift().toUpperCase();
         nomeArray.unshift(primeiraLetraUpper);
         let nomeCompleto = nomeArray.join("")
-        return nomeCompleto;
+        return nomeCompleto.replaceAll("-", " ");
     }
     const pokeTypes = pokemonMoreData.types
-    const descricaoTraduzida = await translate(validarDesc(data.flavor_text_entries).replaceAll("\n", " ").replaceAll("\f", " "))
+    const descricaoTraduzida = await fetchAPI(`https://api.mymemory.translated.net/get?q=${validarDesc(data.flavor_text_entries).replaceAll("\n", " ").replaceAll("\f", " ")}&langpair=en|pt`)
+    const pokeAbilities = pokemonMoreData.abilities;
 
     //Atribuir dados
     pName.innerText = formatarNome(data.name);
@@ -78,32 +68,95 @@ const mostrarInformacoesPokemonSpecies = async (data) => {
     pWeight.innerText = pokemonMoreData.weight / 10
     pHeight.innerText = pokemonMoreData.height / 10
     pDescription.innerText = descricaoTraduzida.responseData.translatedText
-    console.log(descricaoTraduzida)
-    
-    //Formatar Nome Tipo
-    const formatarTipo = (tipo) => {
-        let nomeTipoArray = tipo.split('');
-        let nomeTipoUpper = nomeTipoArray.shift().toUpperCase();
-        nomeTipoArray.unshift(nomeTipoUpper);
-        let nomeTipoCompleto = nomeTipoArray.join("")
-        return nomeTipoCompleto
-    }
 
     //Alterar o Tipo
     for(let type in pokeTypes){
         pTypes[type].setAttribute("id", pokeTypes[type].type.name)
-        pTypes[type].innerText = formatarTipo(pokeTypes[type].type.name)
+        pTypes[type].innerText = formatarNome(pokeTypes[type].type.name)
         if(pokeTypes.length === 1){
             pTypes[1].setAttribute("id", "no2type")
             pTypes[1].innerText = "no2type"
         }
     }
 
+    //Abillitys
+    pAbilities.innerHTML = ""
+    for(let i in pokeAbilities){
+        let abilityDesc = document.createElement("p")
+        abilityDesc.innerHTML = formatarNome(`${pokeAbilities[i].ability.name}`).replaceAll("-", " ")
+        if(pokeAbilities[i].is_hidden == true){
+            abilityDesc.innerHTML = `${formatarNome(`${pokeAbilities[i].ability.name}`).replaceAll("-", " ")} <span>(hidden)</span>`
+            pAbilities.appendChild(abilityDesc)
+        }
+        pAbilities.appendChild(abilityDesc)
+    }
+
+    //Pegar evoluções
+    pEvoContainer.innerHTML = ""
+    const pEvos = await fetchAPI(data.evolution_chain.url)
+    console.log(pEvos)
+    const pBasicNumber = pEvos.chain.species.url.slice(42, 46).replaceAll("/", "")
+
+    if(pEvos.chain.evolves_to.length == 0){
+        const evoUnica = document.createElement("div")
+        evoUnica.className = "evos"
+        evoUnica.setAttribute("id", "evos0")
+        evoUnica.innerHTML = `<div class="evo" id="evo0">
+        <img src="https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${pEvos.chain.species.name}.avif"/>
+        <p>${formatarNome(pEvos.chain.species.name)}</p>
+        </div>`
+        pEvoContainer.appendChild(evoUnica)
+    }
+    
+    for(let i in pEvos.chain.evolves_to){
+        
+        const evoFirst = document.createElement("div")
+        evoFirst.className = "evos"
+        evoFirst.setAttribute("id", `evos${i}`)
+        const pEvo0Number = pEvos.chain.species.url.slice(42, 46).replaceAll("/", "")
+        evoFirst.innerHTML = `<div class="evo" id="evo0">
+        <img src="https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${pEvos.chain.species.name}.avif"/>
+        <p>${formatarNome(pEvos.chain.species.name)}</p>
+        </div>`
+        pEvoContainer.appendChild(evoFirst)
+
+        const pEvo1Number = pEvos.chain.evolves_to[i].species.url.slice(42, 46).replaceAll("/", "")
+        evoFirst.innerHTML += `<img class="seta" src="images/seta-direita.png" />
+                                <div class="evo" id="evo${i}">
+                                    <img
+                                        src="https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${pEvos.chain.evolves_to[i].species.name}.avif"
+                                    />
+                                    <p>${formatarNome(pEvos.chain.evolves_to[i].species.name)}</p>
+                              </div>`
+
+        if(pEvos.chain.evolves_to[i].evolves_to[i] != undefined){
+            console.log("Tem evolução: " + pEvos.chain.evolves_to[i].evolves_to[i].species.name)
+            const pEvo2Number = pEvos.chain.evolves_to[i].evolves_to[i].species.url.slice(42, 46).replaceAll("/", "")
+            evoFirst.innerHTML += `<img class="seta" src="images/seta-direita.png" />
+                                    <div class="evo" id="evo${i}">
+                                        <img
+                                            src="https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${pEvos.chain.evolves_to[i].evolves_to[i].species.name}.avif"
+                                        />
+                                        <p>${formatarNome(pEvos.chain.evolves_to[i].evolves_to[i].species.name)}</p>
+                                  </div>`
+            if(pEvos.chain.evolves_to[i].evolves_to.length > 1){
+                const pEvo3Number = pEvos.chain.evolves_to[i].evolves_to[1].species.url.slice(42, 46).replaceAll("/", "")
+                evoFirst.innerHTML += `<h4> ou </h4>
+                                        <div class="evo" id="evo${i}">
+                                            <img
+                                                src="https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${pEvos.chain.evolves_to[i].evolves_to[1].species.name}.avif"
+                                            />
+                                            <p>${formatarNome(pEvos.chain.evolves_to[i].evolves_to[1].species.name)}</p>
+                                      </div>`
+                console.log(pEvos)
+            }
+        }
+    }
 }
 
 const buscarPokemon = async () => {
     try{
-        const pokeSpeciesData = await fetchPokemonSpecies(pokemonBusca.value.toLowerCase())
+        const pokeSpeciesData = await fetchAPI(`https://pokeapi.co/api/v2/pokemon-species/${pokemonBusca.value.toLowerCase()}`)
         await console.log(pokeSpeciesData)
     
         await mostrarInformacoesPokemonSpecies(pokeSpeciesData);

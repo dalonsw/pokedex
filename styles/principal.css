@@ -135,7 +135,6 @@ section {
     width: 100%;
     align-items: center;
     align-content: center;
-
 }
 
 .poke-class {
@@ -147,9 +146,13 @@ section {
     flex-wrap: wrap;
     background: #a50101;
     color: #fff;
-    font-weight: 700;
+    font-weight: 400;
     flex-grow: 1;
     align-items: center;
+}
+
+#poke-ability p span {
+    font-size: 9pt;
 }
 
 .poke-description {
@@ -171,13 +174,20 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 10px 0;
 }
 
 .evos {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    max-width: 400px;
+    max-width: 500px;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.evos .evo img{
+    width: 100px;
 }
 
 .evo {
